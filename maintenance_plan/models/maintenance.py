@@ -177,7 +177,7 @@ class MaintenanceEquipment(models.Model):
     def _create_new_request(self, maintenance_plan):
         self.ensure_one()
         vals = self._prepare_request_from_plan(maintenance_plan)
-        self.env['maintenance.request'].create(vals)
+        return self.env['maintenance.request'].create(vals)
 
     @api.model
     def _cron_generate_requests(self):
