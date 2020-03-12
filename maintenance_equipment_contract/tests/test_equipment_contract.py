@@ -11,7 +11,7 @@ class TestEquipmentContract(TransactionCase):
         self.equipment_id = self.env['maintenance.equipment'].create({
             'name': 'Equipment'
         })
-        self.contract = self.env['account.analytic.account'].create({
+        self.contract = self.env['contract.contract'].create({
             'name': 'Contract',
             'equipment_ids': [(4, self.equipment_id.id)]
         })
@@ -21,7 +21,7 @@ class TestEquipmentContract(TransactionCase):
         action = self.equipment_id.action_view_contracts()
         self.assertEqual(action['res_id'], self.contract.id)
 
-        self.env['account.analytic.account'].create({
+        self.env['contract.contract'].create({
             'name': 'Contract 2',
             'equipment_ids': [(4, self.equipment_id.id)]
         })

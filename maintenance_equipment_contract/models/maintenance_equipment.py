@@ -9,7 +9,7 @@ class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
 
     contract_ids = fields.Many2many(
-        'account.analytic.account', string='Contracts'
+        'contract.contract', string='Contracts'
     )
     contract_count = fields.Integer(
         compute='_compute_contract_count',
@@ -28,7 +28,7 @@ class MaintenanceEquipment(models.Model):
             action['domain'] = [('id', 'in', self.contract_ids.ids)]
         elif self.contract_ids:
             action['views'] = [(self.env.ref(
-                'contract.account_analytic_account_purchase_form'
+                'contract.contract_contract_form_view'
             ).id, 'form')]
             action['res_id'] = self.contract_ids.id
         action['context'] = {

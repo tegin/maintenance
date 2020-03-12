@@ -16,7 +16,7 @@
         <field name="supplier" eval="True"/>
     </record>
 
-    <record id="equipment_contract" model="account.analytic.account">
+    <record id="equipment_contract" model="contract.contract">
         <field name="name">Contract for an Equipment</field>
         <field name="partner_id" ref="contract_supplier"/>
         <field name="contract_type">purchase</field>
