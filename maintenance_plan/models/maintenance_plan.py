@@ -126,7 +126,7 @@ class MaintenancePlan(models.Model):
                     ("stage_id.done", "!=", True),
                     ("close_date", "=", False),
                 ],
-                order="request_date asc",
+                order="request_date desc",
                 limit=1,
             )
 
@@ -134,14 +134,14 @@ class MaintenancePlan(models.Model):
                 plan.next_maintenance_date = next_maintenance_todo.request_date
             else:
                 last_maintenance_done = self.env["maintenance.request"].search(
-                    [
-                        ("maintenance_plan_id", "=", plan.id),
-                    ],
-                    order="request_date asc",
+                    [("maintenance_plan_id", "=", plan.id)],
+                    order="request_date desc",
                     limit=1,
                 )
                 if last_maintenance_done:
-                    plan.next_maintenance_date = last_maintenance_done.request_date
+                    plan.next_maintenance_date = (
+                        last_maintenance_done.request_date + interval_timedelta
+                    )
                 else:
                     next_date = plan.start_maintenance_date
                     while next_date < fields.Date.today():
